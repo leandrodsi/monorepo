@@ -9,14 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.0.3",
-    "react-native-web": "^0.19.9"
+    "@repo/tokens": "*",
+    "next": "14.0.3"
   },
   "devDependencies": {
+    "@repo/eslint-config": "*",
     "autoprefixer": "^10.0.1",
-    "eslint-config-next": "14.0.3",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0",
-    "typescript": "^5"
+    "tailwindcss": "^3.3.0"
   }
 }
