@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@repo/eslint-config": "workspace:*"
+    "@repo/eslint-config": "*"
   },
   "private": true
 }
