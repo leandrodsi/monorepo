@@ -1,0 +1,13 @@
+{
+  "name": "@repo/tailwind-config",
+  "version": "1.0.0",
+  "files": [
+    "tailwind-nextjs.config.js",
+    "tailwind-native.config.js"
+  ],
+  "private": true,
+  "dependencies": {
+    "@repo/tailwind-config": "*"
+  },
+  "license": "MIT"
+}
