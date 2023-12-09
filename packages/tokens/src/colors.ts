@@ -1,4 +1,4 @@
-export const colors = {
+module.exports = {
   aquamarine: {
     '50': '#e7fff8',
     '100': '#c6ffec',

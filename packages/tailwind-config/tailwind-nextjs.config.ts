@@ -1,7 +1,6 @@
-import { Config } from 'tailwindcss/types/config';
-import baseConfig from './tailwind-base.config';
+const baseConfig = require('./tailwind-base.config');
 
-const config: Config = {
+module.exports = {
   ...baseConfig,
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,5 +8,3 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ]
 };
-
-export default config;

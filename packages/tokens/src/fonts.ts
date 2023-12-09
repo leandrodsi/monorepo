@@ -1,4 +1,4 @@
-export const fonts = {
+module.exports = {
   fontSizes: {
     '2xl': '2rem',
     xl: '1.5rem',

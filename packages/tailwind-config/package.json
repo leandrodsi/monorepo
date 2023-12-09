@@ -7,7 +7,7 @@
   ],
   "private": true,
   "dependencies": {
-    "@repo/tailwind-config": "*"
+    "@repo/tokens": "*"
   },
   "license": "MIT"
 }

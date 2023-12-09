@@ -1,22 +1,16 @@
-import { colors, fonts, radii, spacing } from '@repo/tokens';
-import type { Config } from 'tailwindcss';
+const tokens = require('@repo/tokens/index.ts');
 
-const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}'
-  ],
+module.exports = {
   theme: {
-    colors,
-    spacing,
-    borderRadius: radii,
-    fontWeight: fonts.fontWeights,
+    colors: tokens.colors,
+    spacing: tokens.spacing,
+    borderRadius: tokens.radii,
+    fontWeight: tokens.fonts.fontWeights,
     fontFamily: {
-      sans: fonts.fontFamilies.default
+      sans: tokens.fonts.fontFamilies.default
     },
-    fontSize: fonts.fontSizes,
-    lineHeight: fonts.lineHeights,
+    fontSize: tokens.fonts.fontSizes,
+    lineHeight: tokens.fonts.lineHeights,
     backgroundImage: {
       'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       'gradient-conic':
@@ -25,4 +19,3 @@ const config: Config = {
   },
   plugins: []
 };
-export default config;
