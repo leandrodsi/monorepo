@@ -1,6 +1,18 @@
-const baseConfig = require('./tailwind-base.config.ts');
+const theme = require('@repo/tokens/rn-tokens.ts');
+const colors = require('tailwindcss/colors');
+
+console.log('CONFIGURED THEME', theme);
 
 module.exports = {
-  ...baseConfig,
+  theme: {
+    ...theme,
+    colors: {
+      ...theme.colors,
+      pink: colors.pink,
+      purple: colors.purple,
+      green: colors.green,
+      orange: colors.orange
+    }
+  },
   content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}']
 };

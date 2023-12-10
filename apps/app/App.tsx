@@ -1,12 +1,13 @@
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { Home } from './src/modules/Home/Home.view';
 
 export default function App() {
   return (
-    <View className="flex-1 bg-aquamarine-500 items-center justify-center">
+    <SafeAreaView className="flex-1 bg-rangoonGreen-50">
+      <StatusBar style="dark" backgroundColor="#f6f7f6" />
       <Home />
-      <Text className="text-[32px] text-aquamarine-50">Aqui funciona</Text>
-    </View>
+    </SafeAreaView>
   );
 }
