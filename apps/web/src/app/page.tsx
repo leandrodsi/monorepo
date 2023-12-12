@@ -1,12 +1,11 @@
 import { ClipboardList, Layers3, LayoutList, ListChecks } from 'lucide-react';
 
-import { PageHeader, PieChart } from '@components/index';
+import { PageHeader, PieChart, SummaryCard } from '@components/index';
 import { findAllLists } from '@repo/api';
 import { List } from '@repo/models';
 import { useStore } from '@repo/store';
 import { AxiosResponse } from 'axios';
 import StoreInitializer from '../store/StoreInitializer';
-import { Card } from './components';
 
 async function fetchLists(): Promise<AxiosResponse<List[]>> {
   return findAllLists();
@@ -67,10 +66,13 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       <StoreInitializer lists={lists} />
-      <PageHeader title="Dashboard" subtitle="See your performance" />
+      <PageHeader
+        title={{ label: 'Dashboard' }}
+        subtitle={{ label: 'See your performance' }}
+      />
       <div className="flex w-[670px] mt-20 justify-between">
         {cards.map(cardData => (
-          <Card key={cardData.id} data={cardData} />
+          <SummaryCard key={cardData.id} data={cardData} />
         ))}
       </div>
       <div className="flex mt-20 justify-between">

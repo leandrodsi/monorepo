@@ -1,10 +1,10 @@
 import { InputSearch } from '.';
-import { Subtitle } from './typography/Subtitle';
-import { Title } from './typography/Title';
+import { Subtitle, SubtitleProps } from './typography/Subtitle';
+import { Title, TitleProps } from './typography/Title';
 
 type PageHeaderProps = {
-  title?: string;
-  subtitle?: string;
+  title?: TitleProps;
+  subtitle?: SubtitleProps;
 };
 
 export const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
@@ -12,8 +12,8 @@ export const PageHeader = ({ title, subtitle }: PageHeaderProps) => {
     <div>
       <InputSearch className="mb-8" />
       <div className="space-y-2">
-        {title ? <Title label={title} /> : null}
-        {subtitle ? <Subtitle label={subtitle} /> : null}
+        {title ? <Title {...title} /> : null}
+        {subtitle ? <Subtitle {...subtitle} /> : null}
       </div>
     </div>
   );

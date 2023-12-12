@@ -1,4 +1,4 @@
-type SubtitleProps = {
+export type SubtitleProps = {
   label: string;
 };
 

@@ -2,11 +2,17 @@
 
 import { List as IList } from '@repo/models';
 import { cn } from '@repo/utils';
-import { Plus } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
-import { CheckItem } from '.';
+import { ListItem } from '..';
 
-export function List({ data: { id, name, tasks } }: { data: IList }) {
+export function List({
+  data: { id, name, tasks },
+  onUpdateTask
+}: {
+  data: IList;
+  onUpdateTask: (listId: number, taskId: number) => void;
+}) {
   const [expanded, setExpanded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -40,11 +46,16 @@ export function List({ data: { id, name, tasks } }: { data: IList }) {
               ({finishedItems}/{totalItems})
             </p>
           </div>
-          <div className={cn('flex flex-row px-2 py-1 bg-white rounded-full')}>
-            <button onClick={() => toggleAdding(true)}>
-              <Plus size={20} className="text-aquamarine-500" />
-            </button>
-          </div>
+
+          <button
+            className={cn(
+              'transition-all',
+              expanded ? 'rotate-180' : 'rotate-0'
+            )}
+            onClick={() => toggleAdding(true)}
+          >
+            <ChevronDown size={20} className="text-aquamarine-500" />
+          </button>
         </div>
       </div>
       {expanded && (
@@ -54,28 +65,15 @@ export function List({ data: { id, name, tasks } }: { data: IList }) {
               a.finished && !b.finished ? -1 : !a.finished && b.finished ? 1 : 0
             )
             .map(item => (
-              <CheckItem key={item.id} listId={id} task={item} />
+              <ListItem
+                key={item.id}
+                listId={id}
+                task={item}
+                onUpdateTask={onUpdateTask}
+              />
             ))}
         </div>
       )}
-      {/* <Modal isVisible={isVisible} onBackdropPress={() => setIsVisible(false)}>
-        <div className="bg-white px-6 py-5 rounded-lg">
-          <div className="flex-row justify-between items-center mb-8">
-            <p className="text-lg">Add item to list:</p>
-            <Pressable onClick={() => setIsVisible(false)}>
-              <X size={18} className="text-aquamarine-500" />
-            </Pressable>
-          </div>
-          <p className="mb-2">Add a name to your item list:</p>
-          <pInput
-            className="mb-4 border-2 border-aquamarine-500 rounded-lg px-4 py-2"
-            placeholder="Item name"
-          />
-          <Pressable className="h-10 bg-aquamarine-500 items-center justify-center rounded-lg">
-            <p className="text-white font-bold text-lg">Add</p>
-          </Pressable>
-        </div>
-      </Modal> */}
     </div>
   );
 }

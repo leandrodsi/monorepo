@@ -20,7 +20,7 @@ const possible = [
   'text-green-400'
 ];
 
-export const Card = ({
+export const SummaryCard = ({
   data: { value, label, icon: Icon, color }
 }: {
   data: CardProps;

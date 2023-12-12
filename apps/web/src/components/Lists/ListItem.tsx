@@ -8,16 +8,18 @@ import { Check } from 'lucide-react';
 type CheckItemProps = {
   listId: number;
   task: Task;
+  onUpdateTask: (listId: number, taskId: number) => void;
 };
 
-export const CheckItem = ({
+export const ListItem = ({
   listId,
-  task: { id, name, finished }
+  task: { id, name, finished },
+  onUpdateTask
 }: CheckItemProps) => {
   const handleClick = async () => {
-    const response = await updateTask(listId, id, { finished: !finished });
+    await updateTask(listId, id, { finished: !finished });
 
-    console.log(response);
+    onUpdateTask(listId, id);
   };
 
   return (

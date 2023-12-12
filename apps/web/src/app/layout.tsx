@@ -1,8 +1,9 @@
 import { cn } from '@repo/utils';
 import type { Metadata } from 'next';
 import { Nunito } from 'next/font/google';
-import { Sidebar } from './components';
+
 import './globals.css';
+import { Sidebar } from '@components/Sidebar';
 
 const inter = Nunito({ subsets: ['latin'] });
 
