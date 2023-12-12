@@ -1,62 +1,41 @@
 import { Header } from '@components/Header';
 import { List } from '@components/List';
+import { findAllLists } from '@repo/api';
+import { List as IList } from '@repo/models';
 import { X } from 'lucide-react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FlatList, Pressable, Text, TextInput, View } from 'react-native';
 import Modal from 'react-native-modal';
 
 export const Home = () => {
-  const [lists, setLists] = useState([
-    {
-      id: 'a',
-      name: 'Regime',
-      items: [
-        { id: 'a1', name: '1 glass of fruit juice', finished: true },
-        { id: 'a2', name: '30g of cheese', finished: true },
-        { id: 'a3', name: '125g of yogurt', finished: false },
-        { id: 'a4', name: 'Rice, pasta or semolina', finished: false },
-        { id: 'a5', name: 'Lentils, chickpeas or beans', finished: false }
-      ]
-    },
-    {
-      id: 'b',
-      name: 'Grocery List',
-      items: [
-        { id: 'b1', name: 'Meat', finished: true },
-        { id: 'b2', name: 'Bread', finished: false },
-        { id: 'b3', name: 'Cheese', finished: false },
-        { id: 'b5', name: 'Cheese', finished: false },
-        { id: 'b6', name: 'Cheese', finished: false },
-        { id: 'b7', name: 'Cheese', finished: false },
-        { id: 'b4', name: 'Bacon', finished: true }
-      ]
-    },
-    {
-      id: 'c',
-      name: 'Project Alpha',
-      items: []
-    },
-    {
-      id: 'd',
-      name: 'Project Beta',
-      items: []
-    },
-    {
-      id: 'e',
-      name: 'Project Delta',
-      items: []
-    }
-  ]);
-
   const [isVisible, setIsVisible] = useState(false);
+  const [lists, setLists] = useState<IList[]>([]);
+
+  useEffect(() => {
+    (async function () {
+      const { data } = await findAllLists();
+
+      setLists(data);
+    })();
+
+    const socket = new WebSocket('ws://localhost:3333');
+
+    socket.addEventListener('open', () => {
+      console.log('CONNECTION OPENED');
+    });
+
+    socket.addEventListener('message', e => {
+      console.log('Message from server:', e.data);
+    });
+  }, []);
 
   return (
     <View className="flex-1 px-6 py-8">
       <Header title="My Lists" onPress={() => setIsVisible(true)} />
       <FlatList
         data={lists}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => <List data={item} onChange={setLists} />}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({ item }) => <List data={item} />}
         ListEmptyComponent={() => (
           <Text className="text-lg px-6">
             You do not have any registered list

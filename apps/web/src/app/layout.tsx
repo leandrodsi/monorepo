@@ -18,7 +18,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en" className="gs">
-      <body className={cn(inter.className, 'antialiase flex bg-[#f1f1f7]')}>
+      <body className={cn(inter.className, 'antialiased flex bg-[#f1f1f7]')}>
         <Sidebar />
         <div className="flex flex-col px-12 py-16  min-h-screen">
           {children}

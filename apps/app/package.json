@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@repo/api": "*",
     "@repo/tailwind-config": "*",
     "@repo/utils": "*",
     "expo": "~49.0.15",

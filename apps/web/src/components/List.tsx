@@ -12,6 +12,7 @@ export function List({ data: { id, name, tasks } }: { data: IList }) {
 
   const finishedItems = tasks.filter(task => task.finished).length;
   const totalItems = tasks.length;
+  const thereAreTasks = totalItems > 0;
 
   const toggleExpand = () => {
     setExpanded(prev => !prev);
@@ -23,9 +24,12 @@ export function List({ data: { id, name, tasks } }: { data: IList }) {
 
   return (
     <div className="bg-white rounded-lg mb-4">
-      <button
-        onClick={tasks.length > 0 ? toggleExpand : () => {}}
-        className="w-full"
+      <div
+        onClick={thereAreTasks ? toggleExpand : () => {}}
+        className={cn(
+          'w-full',
+          thereAreTasks ? 'cursor-pointer' : 'cursor-default'
+        )}
       >
         <div className="flex px-4 h-12 flex-row items-center justify-between">
           <div className="flex items-baseline gap-2">
@@ -42,7 +46,7 @@ export function List({ data: { id, name, tasks } }: { data: IList }) {
             </button>
           </div>
         </div>
-      </button>
+      </div>
       {expanded && (
         <div className="px-4 py-2">
           {tasks
@@ -50,28 +54,7 @@ export function List({ data: { id, name, tasks } }: { data: IList }) {
               a.finished && !b.finished ? -1 : !a.finished && b.finished ? 1 : 0
             )
             .map(item => (
-              <CheckItem
-                key={item.id}
-                checked={item.finished}
-                label={item.name}
-                onClick={
-                  () => {}
-                  // onChange(prev =>
-                  //   prev.map(list =>
-                  //     list.id !== id
-                  //       ? list
-                  //       : {
-                  //           ...list,
-                  //           items: list.items.map(i =>
-                  //             i.id !== item.id
-                  //               ? i
-                  //               : { ...i, finished: !i.finished }
-                  //           )
-                  //         }
-                  //   )
-                  // )
-                }
-              />
+              <CheckItem key={item.id} listId={id} task={item} />
             ))}
         </div>
       )}

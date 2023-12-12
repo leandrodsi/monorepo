@@ -1,33 +1,46 @@
 'use client';
 
+import { updateTask } from '@repo/api';
+import { Task } from '@repo/models';
 import { cn } from '@repo/utils';
 import { Check } from 'lucide-react';
 
 type CheckItemProps = {
-  checked: boolean;
-  label: string;
-  onClick: () => void;
+  listId: number;
+  task: Task;
 };
 
-export const CheckItem = ({ checked, label, onClick }: CheckItemProps) => {
+export const CheckItem = ({
+  listId,
+  task: { id, name, finished }
+}: CheckItemProps) => {
+  const handleClick = async () => {
+    const response = await updateTask(listId, id, { finished: !finished });
+
+    console.log(response);
+  };
+
   return (
     <div className="mb-2">
-      <button className="flex flex-row gap-2 items-center" onClick={onClick}>
+      <button
+        className="flex flex-row gap-2 items-center"
+        onClick={handleClick}
+      >
         <div
           className={cn(
             'flex w-5 h-5 rounded-md border-2 border-aquamarine-500 items-center justify-center',
-            checked && 'border-rangoonGreen-400'
+            finished && 'border-rangoonGreen-400'
           )}
         >
-          {checked && <Check size={12} className="text-rangoonGreen-500" />}
+          {finished && <Check size={12} className="text-rangoonGreen-500" />}
         </div>
         <p
           className={cn(
             'flex flex-1 text-rangoonGreen-400',
-            checked && 'text-rangoonGreen-300'
+            finished && 'text-rangoonGreen-300'
           )}
         >
-          {label}
+          {name}
         </p>
       </button>
     </div>

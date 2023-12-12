@@ -1,14 +1,14 @@
 import { List, PageHeader } from '@components/index';
+import { findAllLists } from '@repo/api';
 import { List as IList } from '@repo/models';
+import { AxiosResponse } from 'axios';
 
-async function fetchLists(): Promise<IList[]> {
-  const listsResponse = await fetch('http://localhost:3333/list');
-
-  return listsResponse.json() as Promise<IList[]>;
+async function fetchLists(): Promise<AxiosResponse<IList[]>> {
+  return findAllLists();
 }
 
 export default async function Lists() {
-  const lists = await fetchLists();
+  const { data: lists } = await fetchLists();
 
   console.log('LISTS PAGE: ', lists);
 

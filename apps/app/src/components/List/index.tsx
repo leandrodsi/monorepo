@@ -1,4 +1,5 @@
 import { CheckItem } from '@components/CheckItem';
+import { List as IList } from '@repo/models';
 import { cn } from '@repo/utils/index';
 import { Keyboard, Mic, Plus, X } from 'lucide-react-native';
 import { useState } from 'react';
@@ -11,43 +12,13 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 
-type ListItemProps = {
-  id: string;
-  name: string;
-  finished: boolean;
-};
-
-type ListProps = {
-  id: string;
-  name: string;
-  items: ListItemProps[];
-};
-
-export const List = ({
-  data: { id, name, items },
-  onChange
-}: {
-  data: ListProps;
-  onChange: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: string;
-        name: string;
-        items: {
-          id: string;
-          name: string;
-          finished: boolean;
-        }[];
-      }[]
-    >
-  >;
-}) => {
+export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
   const [adding, setAdding] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const finishedItems = items.filter(item => item.finished).length;
-  const totalItems = items.length;
+  const finishedItems = tasks.filter(item => item.finished).length;
+  const totalItems = tasks.length;
 
   const toggleExpand = () => {
     setExpanded(prev => !prev);
@@ -99,7 +70,7 @@ export const List = ({
       </Pressable>
       {expanded && (
         <View className="px-4 py-2">
-          {items
+          {tasks
             .sort((a, b) =>
               a.finished && !b.finished ? -1 : !a.finished && b.finished ? 1 : 0
             )
@@ -108,22 +79,7 @@ export const List = ({
                 key={item.id}
                 checked={item.finished}
                 label={item.name}
-                onPress={() =>
-                  onChange(prev =>
-                    prev.map(list =>
-                      list.id !== id
-                        ? list
-                        : {
-                            ...list,
-                            items: list.items.map(i =>
-                              i.id !== item.id
-                                ? i
-                                : { ...i, finished: !i.finished }
-                            )
-                          }
-                    )
-                  )
-                }
+                onPress={() => {}}
               />
             ))}
         </View>

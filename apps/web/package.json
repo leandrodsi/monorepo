@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@repo/api": "*",
     "@repo/tailwind-config": "*",
     "@repo/utils": "*",
     "@repo/store": "*",

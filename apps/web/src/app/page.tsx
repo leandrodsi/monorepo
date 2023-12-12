@@ -1,22 +1,20 @@
 import { ClipboardList, Layers3, LayoutList, ListChecks } from 'lucide-react';
 
 import { PageHeader, PieChart } from '@components/index';
+import { findAllLists } from '@repo/api';
 import { List } from '@repo/models';
 import { useStore } from '@repo/store';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import StoreInitializer from '../store/StoreInitializer';
 import { Card } from './components';
 
 async function fetchLists(): Promise<AxiosResponse<List[]>> {
-  // const listsResponse = await fetch('http://localhost:3333/list');
-
-  return axios.get('http://localhost:3333/list');
+  return findAllLists();
 }
 
 export default async function Home() {
   const { data: lists } = await fetchLists();
 
-  console.log('LISTS DASHBOARD: ', lists);
   useStore.setState(lists);
 
   const totalTasks =

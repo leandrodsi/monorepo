@@ -1,8 +1,6 @@
 const theme = require('@repo/tokens/rn-tokens.ts');
 const colors = require('tailwindcss/colors');
 
-console.log('CONFIGURED THEME', theme);
-
 module.exports = {
   theme: {
     ...theme,

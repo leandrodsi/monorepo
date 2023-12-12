@@ -25,7 +25,6 @@ const routes = [
 
 export const Sidebar = () => {
   const pathname = usePathname();
-  console.log(pathname);
 
   return (
     <aside className="w-[300px] px-8 py-16 min-h-screen bg-white">
