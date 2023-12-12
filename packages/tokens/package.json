@@ -1,0 +1,10 @@
+{
+  "name": "@repo/tokens",
+  "version": "1.0.0",
+  "files": [
+    "rn-tokens.ts",
+    "next-tokens.ts"
+  ],
+  "private": true,
+  "license": "MIT"
+}

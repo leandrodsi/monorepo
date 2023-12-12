@@ -2,8 +2,15 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Next.js",
   "extends": "./base.json",
+  "exclude": [
+    "**/*.config.ts"
+  ],
   "compilerOptions": {
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "allowJs": true,
