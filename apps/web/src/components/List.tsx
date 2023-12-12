@@ -1,46 +1,17 @@
 'use client';
 
+import { List as IList } from '@repo/models';
 import { cn } from '@repo/utils';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import { CheckItem } from '.';
 
-type ListItemProps = {
-  id: string;
-  name: string;
-  finished: boolean;
-};
-
-type ListProps = {
-  id: string;
-  name: string;
-  items: ListItemProps[];
-};
-
-export const List = ({
-  data: { id, name, items },
-  onChange
-}: {
-  data: ListProps;
-  onChange: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: string;
-        name: string;
-        items: {
-          id: string;
-          name: string;
-          finished: boolean;
-        }[];
-      }[]
-    >
-  >;
-}) => {
+export function List({ data: { id, name, tasks } }: { data: IList }) {
   const [expanded, setExpanded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const finishedItems = items.filter(item => item.finished).length;
-  const totalItems = items.length;
+  const finishedItems = tasks.filter(task => task.finished).length;
+  const totalItems = tasks.length;
 
   const toggleExpand = () => {
     setExpanded(prev => !prev);
@@ -52,7 +23,10 @@ export const List = ({
 
   return (
     <div className="bg-white rounded-lg mb-4">
-      <button onClick={toggleExpand} className="w-full">
+      <button
+        onClick={tasks.length > 0 ? toggleExpand : () => {}}
+        className="w-full"
+      >
         <div className="flex px-4 h-12 flex-row items-center justify-between">
           <div className="flex items-baseline gap-2">
             <p className="flex align-center text-lg text-rangoonGreen-700">
@@ -71,7 +45,7 @@ export const List = ({
       </button>
       {expanded && (
         <div className="px-4 py-2">
-          {items
+          {tasks
             .sort((a, b) =>
               a.finished && !b.finished ? -1 : !a.finished && b.finished ? 1 : 0
             )
@@ -80,21 +54,22 @@ export const List = ({
                 key={item.id}
                 checked={item.finished}
                 label={item.name}
-                onClick={() =>
-                  onChange(prev =>
-                    prev.map(list =>
-                      list.id !== id
-                        ? list
-                        : {
-                            ...list,
-                            items: list.items.map(i =>
-                              i.id !== item.id
-                                ? i
-                                : { ...i, finished: !i.finished }
-                            )
-                          }
-                    )
-                  )
+                onClick={
+                  () => {}
+                  // onChange(prev =>
+                  //   prev.map(list =>
+                  //     list.id !== id
+                  //       ? list
+                  //       : {
+                  //           ...list,
+                  //           items: list.items.map(i =>
+                  //             i.id !== item.id
+                  //               ? i
+                  //               : { ...i, finished: !i.finished }
+                  //           )
+                  //         }
+                  //   )
+                  // )
                 }
               />
             ))}
@@ -120,4 +95,4 @@ export const List = ({
       </Modal> */}
     </div>
   );
-};
+}
