@@ -25,7 +25,11 @@ export class ListController {
   async create(@Body() createListDto: CreateListDto) {
     const list = await this.listService.create(createListDto);
 
-    this.gateway.server.emit('onMessage', { msg: 'created/list', body: list });
+    this.gateway.server.emit('onMessage', {
+      target: 'LIST',
+      action: 'CREATE',
+      data: list,
+    });
   }
 
   @Get()
@@ -43,11 +47,21 @@ export class ListController {
   async update(@Param('id') id: number, @Body() updateListDto: UpdateListDto) {
     const list = await this.listService.update(+id, updateListDto);
 
-    this.gateway.server.emit('onMessage', { msg: 'updated/list', body: list });
+    this.gateway.server.emit('onMessage', {
+      target: 'LIST',
+      action: 'UPDATE',
+      data: list,
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.listService.remove(+id);
+  async remove(@Param('id') id: number) {
+    const list = await this.listService.remove(+id);
+
+    this.gateway.server.emit('onMessage', {
+      target: 'LIST',
+      action: 'DELETE',
+      data: list,
+    });
   }
 }

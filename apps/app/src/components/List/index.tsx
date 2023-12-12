@@ -1,4 +1,5 @@
 import { CheckItem } from '@components/CheckItem';
+import { createTask } from '@repo/api';
 import { List as IList } from '@repo/models';
 import { cn } from '@repo/utils/index';
 import { Keyboard, Mic, Plus, X } from 'lucide-react-native';
@@ -13,12 +14,14 @@ import {
 import Modal from 'react-native-modal';
 
 export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
+  const [newTaskName, setNewTaskName] = useState('');
   const [adding, setAdding] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const finishedItems = tasks.filter(item => item.finished).length;
-  const totalItems = tasks.length;
+  const finishedItems = tasks?.filter(item => item.finished).length;
+  const totalItems = tasks?.length || 0;
 
   const toggleExpand = () => {
     setExpanded(prev => !prev);
@@ -27,8 +30,21 @@ export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
 
   const toggleAdding = (isAdding: boolean) => {
     setAdding(isAdding);
-    setIsVisible(!isAdding);
+    setIsModalVisible(!isAdding);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  };
+
+  const handleAddTask = async () => {
+    try {
+      setIsLoading(true);
+      await createTask(id, { name: newTaskName });
+
+      setIsModalVisible(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -74,21 +90,19 @@ export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
             .sort((a, b) =>
               a.finished && !b.finished ? -1 : !a.finished && b.finished ? 1 : 0
             )
-            .map(item => (
-              <CheckItem
-                key={item.id}
-                checked={item.finished}
-                label={item.name}
-                onPress={() => {}}
-              />
+            .map(task => (
+              <CheckItem key={task.id.toString()} listId={id} data={task} />
             ))}
         </View>
       )}
-      <Modal isVisible={isVisible} onBackdropPress={() => setIsVisible(false)}>
+      <Modal
+        isVisible={isModalVisible}
+        onBackdropPress={() => setIsModalVisible(false)}
+      >
         <View className="bg-white px-6 py-5 rounded-lg">
           <View className="flex-row justify-between items-center mb-8">
             <Text className="text-lg">Add item to list:</Text>
-            <Pressable onPress={() => setIsVisible(false)}>
+            <Pressable onPress={() => setIsModalVisible(false)}>
               <X size={18} className="text-aquamarine-500" />
             </Pressable>
           </View>
@@ -96,8 +110,12 @@ export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
           <TextInput
             className="mb-4 border-2 border-aquamarine-500 rounded-lg px-4 py-2"
             placeholder="Item name"
+            onChangeText={setNewTaskName}
           />
-          <Pressable className="h-10 bg-aquamarine-500 items-center justify-center rounded-lg">
+          <Pressable
+            className="h-10 bg-aquamarine-500 items-center justify-center rounded-lg"
+            onPress={handleAddTask}
+          >
             <Text className="text-white font-bold text-lg">Add</Text>
           </Pressable>
         </View>

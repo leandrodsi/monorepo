@@ -28,7 +28,11 @@ export class ListTaskController {
   ) {
     const task = await this.listTaskService.create(+listId, createListTaskDto);
 
-    this.gateway.server.emit('onMessage', { msg: 'created/task', body: task });
+    this.gateway.server.emit('onMessage', {
+      target: 'TASK',
+      action: 'CREATE',
+      data: task,
+    });
   }
 
   @Get(':listId/task')
@@ -54,11 +58,24 @@ export class ListTaskController {
       updateListTaskDto,
     );
 
-    this.gateway.server.emit('onMessage', { msg: 'updated/task', body: task });
+    this.gateway.server.emit('onMessage', {
+      target: 'TASK',
+      action: 'UPDATE',
+      data: task,
+    });
   }
 
   @Delete(':listId/task/:taskId')
-  remove(@Param('listId') listId: string, @Param('taskId') taskId: string) {
-    return this.listTaskService.remove(+listId, +taskId);
+  async remove(
+    @Param('listId') listId: string,
+    @Param('taskId') taskId: string,
+  ) {
+    const task = await this.listTaskService.remove(+listId, +taskId);
+
+    this.gateway.server.emit('onMessage', {
+      target: 'TASK',
+      action: 'DELETE',
+      data: task,
+    });
   }
 }

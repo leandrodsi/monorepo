@@ -1,34 +1,50 @@
+import { updateTask } from '@repo/api';
+import { Task } from '@repo/models';
 import { cn } from '@repo/utils/index';
 import { Check } from 'lucide-react-native';
 import { Pressable, Text, View } from 'react-native';
 
 type CheckItemProps = {
-  checked: boolean;
-  label: string;
-  onPress: () => void;
+  listId: number;
+  data: Task & { listId?: number };
 };
 
-export const CheckItem = ({ checked, label, onPress }: CheckItemProps) => {
+export const CheckItem = ({
+  listId,
+  data: { id, name, finished }
+}: CheckItemProps) => {
+  const handleToggleFinishedTask = async () => {
+    try {
+      await updateTask(listId, id, { finished: !finished });
+    } catch (error) {
+      console.log(error);
+    } finally {
+    }
+  };
+
   return (
     <View className="mb-2">
-      <Pressable className="flex-row gap-2 items-center" onPress={onPress}>
+      <Pressable
+        className="flex-row gap-2 items-center"
+        onPress={handleToggleFinishedTask}
+      >
         <View
           className={cn(
             'w-5 h-5 rounded-md border-2 border-aquamarine-500 items-center justify-center',
-            checked && 'border-rangoonGreen-400'
+            finished && 'border-rangoonGreen-400'
           )}
         >
-          {checked && <Check size={12} className="text-rangoonGreen-500" />}
+          {finished && <Check size={12} className="text-rangoonGreen-500" />}
         </View>
         <Text
           className={cn(
             'flex-1 text-rangoonGreen-400',
-            checked && 'text-rangoonGreen-300'
+            finished && 'text-rangoonGreen-300'
           )}
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          {label}
+          {name}
         </Text>
       </Pressable>
     </View>
