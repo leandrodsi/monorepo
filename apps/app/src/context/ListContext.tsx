@@ -26,10 +26,6 @@ export const ListContext = createContext<ListContextDataProps>(
 export const ListContextProvider = ({ children }: ListContextProviderProps) => {
   const [lists, setLists] = useState<List[]>([]);
 
-  useEffect(() => {
-    console.log('LISTS', lists);
-  }, [lists]);
-
   const updateList = ({ target, action, data }: UpdateListPropsType) => {
     setLists(prev => {
       let updatedList: List[] = prev;
@@ -99,9 +95,13 @@ export const ListContextProvider = ({ children }: ListContextProviderProps) => {
 
   useEffect(() => {
     (async function () {
-      const { data } = await findAllLists();
+      try {
+        const { data } = await findAllLists();
 
-      setLists(data);
+        setLists(data);
+      } catch (error) {
+        console.log('ERROR: ', error);
+      }
     })();
   }, []);
 

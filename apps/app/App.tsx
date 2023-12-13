@@ -1,9 +1,11 @@
 import { Container } from '@components/Container';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { SafeAreaView } from 'react-native';
+import { LogBox, SafeAreaView } from 'react-native';
 import { ListContextProvider } from 'src/context/ListContext';
 import { Home } from './src/modules/Home/Home.view';
+
+LogBox.ignoreLogs(['new NativeEventEmitter']);
 
 export default function App() {
   return (

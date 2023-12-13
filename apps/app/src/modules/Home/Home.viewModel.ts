@@ -24,6 +24,7 @@ export const useHomeView = () => {
   return {
     states: {
       lists,
+      isLoading,
       isModalVisible
     },
     handlers: {

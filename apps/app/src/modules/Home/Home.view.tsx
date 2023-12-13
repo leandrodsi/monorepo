@@ -1,18 +1,27 @@
 import { Header } from '@components/Header';
 import { List } from '@components/List';
+import { cn } from '@repo/utils/index';
 import { X } from 'lucide-react-native';
-import { FlatList, Pressable, Text, TextInput, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Platform,
+  Pressable,
+  Text,
+  TextInput,
+  View
+} from 'react-native';
 import Modal from 'react-native-modal';
 import { useHomeView } from './Home.viewModel';
 
 export const Home = () => {
   const {
-    states: { lists, isModalVisible },
+    states: { lists, isLoading, isModalVisible },
     handlers: { handleAddList, setIsModalVisible, setName }
   } = useHomeView();
 
   return (
-    <View className="flex-1 px-6 py-8">
+    <View className={cn('flex-1 px-6 pt-12', Platform.OS === 'ios' && 'pt-4')}>
       <Header title="My Lists" onPress={() => setIsModalVisible(true)} />
       <FlatList
         data={lists}
@@ -53,7 +62,11 @@ export const Home = () => {
             className="h-10 bg-aquamarine-500 items-center justify-center rounded-lg"
             onPress={handleAddList}
           >
-            <Text className="text-white font-bold text-lg">Add</Text>
+            {isLoading ? (
+              <ActivityIndicator color="white" />
+            ) : (
+              <Text className="text-white font-bold text-lg">Add</Text>
+            )}
           </Pressable>
         </View>
       </Modal>

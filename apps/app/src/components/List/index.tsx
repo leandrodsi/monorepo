@@ -2,9 +2,10 @@ import { CheckItem } from '@components/CheckItem';
 import { createTask } from '@repo/api';
 import { List as IList } from '@repo/models';
 import { cn } from '@repo/utils/index';
-import { Keyboard, Mic, Plus, X } from 'lucide-react-native';
+import { Plus, X } from 'lucide-react-native';
 import { useState } from 'react';
 import {
+  ActivityIndicator,
   LayoutAnimation,
   Pressable,
   Text,
@@ -28,10 +29,8 @@ export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   };
 
-  const toggleAdding = (isAdding: boolean) => {
-    setAdding(isAdding);
-    setIsModalVisible(!isAdding);
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  const handleShowModal = () => {
+    setIsModalVisible(true);
   };
 
   const handleAddTask = async () => {
@@ -63,24 +62,9 @@ export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
               adding && 'bg-aquamarine-500'
             )}
           >
-            {adding ? (
-              <View className="flex-row px-2 py-1 bg-aquamarine-500 rounded-full">
-                <Pressable onPress={() => toggleAdding(false)}>
-                  <Mic
-                    size={20}
-                    color="#ffffff"
-                    style={{ margin: 0, padding: 0 }}
-                  />
-                </Pressable>
-                <Pressable onPress={() => toggleAdding(false)} className="ml-3">
-                  <Keyboard size={20} color="#ffffff" />
-                </Pressable>
-              </View>
-            ) : (
-              <Pressable onPress={() => toggleAdding(true)}>
-                <Plus size={20} className="text-aquamarine-500" />
-              </Pressable>
-            )}
+            <Pressable onPress={handleShowModal}>
+              <Plus size={20} className="text-aquamarine-500" />
+            </Pressable>
           </View>
         </View>
       </Pressable>
@@ -116,7 +100,11 @@ export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
             className="h-10 bg-aquamarine-500 items-center justify-center rounded-lg"
             onPress={handleAddTask}
           >
-            <Text className="text-white font-bold text-lg">Add</Text>
+            {isLoading ? (
+              <ActivityIndicator color="white" />
+            ) : (
+              <Text className="text-white font-bold text-lg">Add</Text>
+            )}
           </Pressable>
         </View>
       </Modal>
