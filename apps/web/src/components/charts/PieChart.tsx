@@ -1,22 +1,18 @@
 'use client';
 
-import { useStore } from '@repo/store';
-import { VictoryPie } from 'victory';
+import { VictoryLabel, VictoryPie } from 'victory';
 
 type PieChartProps = {
   data: { x: string; y: number }[];
 };
 
 export const PieChart = ({ data }: PieChartProps) => {
-  const lists = useStore();
-
-  console.log('CARD LISTS: ', lists);
-
   return (
     <VictoryPie
       data={data}
-      colorScale={['navy', 'green']}
+      colorScale={['#fb923c', '#4ade80']}
       animate={{ duration: 500 }}
+      labelComponent={<VictoryLabel style={{ display: 'none' }} />}
     />
   );
 };

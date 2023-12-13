@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { LogBox, SafeAreaView } from 'react-native';
 import { ListContextProvider } from 'src/context/ListContext';
-import { Home } from './src/modules/Home/Home.view';
+import { Home } from './src/modules/Home/Screens/Home.view';
 
 LogBox.ignoreLogs(['new NativeEventEmitter']);
 

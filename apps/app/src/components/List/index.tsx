@@ -53,7 +53,7 @@ export const List = ({ data: { id, name, tasks } }: { data: IList }) => {
           <Text className="text-lg text-rangoonGreen-700">
             {name}{' '}
             <Text className="text-sm text-rangoonGreen-500">
-              ({finishedItems}/{totalItems})
+              ({finishedItems || 0}/{totalItems})
             </Text>
           </Text>
           <View

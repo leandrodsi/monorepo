@@ -45,7 +45,7 @@ export const ListsWrapper = () => {
   }, []);
 
   return (
-    <div className="flex h-full flex-col mt-20 justify-between">
+    <div className="flex flex-col mt-12 justify-between">
       {isLoading ? (
         <Spinner />
       ) : (

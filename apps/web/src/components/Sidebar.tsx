@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@repo/utils';
-import { CheckSquare, ClipboardList, LayoutDashboard } from 'lucide-react';
+import { ClipboardList, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -15,11 +15,6 @@ const routes = [
     label: 'Lists',
     icon: ClipboardList,
     path: '/lists'
-  },
-  {
-    label: 'Tasks',
-    icon: CheckSquare,
-    path: '/tasks'
   }
 ];
 
@@ -27,7 +22,7 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[300px] px-8 py-16 min-h-screen bg-white">
+    <aside className="w-[300px] px-8 py-16 bg-white min-h-full fixed">
       <nav className="flex flex-col gap-5">
         {routes.map(({ label, path, icon: Icon }) => {
           const selected = path === pathname;

@@ -55,7 +55,7 @@ export const ListContextProvider = ({ children }: ListContextProviderProps) => {
                 ? list
                 : {
                     ...list,
-                    tasks: [...list?.tasks, data]
+                    tasks: list.tasks ? [...list?.tasks, data] : [data]
                   }
             );
             console.log('UPDATED LIST AFTER', updatedList);

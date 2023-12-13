@@ -64,7 +64,7 @@ export default async function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col">
+    <main className="flex flex-col">
       <StoreInitializer lists={lists} />
       <PageHeader
         title={{ label: 'Dashboard' }}
