@@ -52,10 +52,12 @@ $ yarn
 
 **Starting a project**
 
+To execute the app:
+
 - Api
 
 ```bash
-#Access the web folder
+#Access the api folder
 $ cd apps/api
 
 # Web application
@@ -65,8 +67,6 @@ $ yarn start:dev
 To execute the web application, you need to change the IP address located on `<root>/packages/api/src/api/index.tsx` to your local IP.
 
 To execute the app em mobile applications successfully (with realtime), you need to change the IP address located on `<root>/apps/app/src/components/Container/index.tsx` to your local IP.
-
-To execute the app e
 
 - Web
 
@@ -157,7 +157,7 @@ Despite being well-acquainted with React, I hadn't worked with a Next.js version
 The mobile app, built in React Native using Expo with the Bare workflow, empowers users to create activity lists, add tasks, and update tasks. In contrast to the web, mobile updates use a socket, ensuring real-time reflection of changes made on the web.
 
 **Challenges**:
-Despite being my preferred technology, integrating Nativewind into the project for React Native posed challenges. Opting for Nativewind, which works well for web applications, might not have been the best choice for React Native, but that's what made it a challenge
+Despite being my preferred technology, integrating Nativewind into the project for React Native posed challenges. Opting for Nativewind (that uses tailwindcss), which works well for web applications, might not have been the best choice for React Native, but that's what made it a challenge
 
 <br />
 
