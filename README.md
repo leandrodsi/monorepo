@@ -1,81 +1,89 @@
-# Turborepo starter
+# Task Tracker
 
-This is an official starter Turborepo.
+The task tracker is a personal productivity tool designed for individual users. It allows individuals to create customized lists for various purposes such as shopping, daily activities, or dietary items. Users can efficiently manage and organize their tasks, making it a versatile solution for personal organization and productivity.
+<br/>
 
-## Using this example
+### SCOPE:
 
-Run the following command:
+The project aimed to address four specific functionalities:
 
-```sh
-npx create-turbo@latest
-```
+1. **ReactJS and Next.js Development**:
 
-## What's inside?
+   - Design and implement a ReactJS component that benefits from Next.js's server-side rendering capabilities. This should focus on optimizing performance and enhancing SEO.
+   - Address challenges related to data fetching in a server-side rendered environment and elaborate on any other considerations unique to Next.js.
 
-This Turborepo includes the following packages/apps:
+2. **React Native and Data Synchronization**:
 
-### Apps and Packages
+   - Develop a React Native feature that revolves around fetching and updating data dynamically. The goal is to ensure that users are consistently presented with the most recent and relevant data.
+   - Highlight and address challenges such as handling changing network conditions, battery efficiency, and ensuring data integrity.
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+3. **Native Module Development in React Native**:
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+   - Craft a native module for the React Native ecosystem. This could involve leveraging a device-specific feature, enhancing user experience, or optimizing a particular performance-heavy task.
+   - Detail the process of facilitating seamless communication between the native module and React Native's JavaScript layer, ensuring data integrity and smooth user experience.
 
-### Utilities
+4. **Monorepo Management**:
+   - Organize and manage your ReactJS and React Native solutions within a monorepo setup. Emphasize package sharing, efficient dependency management, and strategies for ensuring code reusability across platforms.
+   - Provide insights into challenges faced and best practices for maintaining a monorepo setup for React projects.
 
-This Turborepo has some additional tools already setup for you:
+An idea that emerged to address these four points was the TaskTracker, incorporating Next.js for web applications (addressing item 1), React Native for mobile (addressing items 2 and 3), and an API for information management—all within a monorepo, effectively covering all four items.
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+<hr/>
 
-### Build
+### <b>MONOREPO</b>:
 
-To build all apps and packages, run the following command:
+The monorepo was conceived for ease of implementation, scalability, and swift processing, employing the Turbo Repo tool with a pre-configured caching system. It introduces a standardized folder structure, distinguishing between 'Apps' (housing web, mobile, APIs) and 'Packages' for shared components. A well-thought-out architecture within a monorepo can significantly reduce duplicated code, enhancing productivity.
 
-```
-cd my-turborepo
-pnpm build
-```
+<b>Challenges</b>:
+Included my inaugural implementation of a monorepo, with major hurdles lying in the preliminary study of structure and organization rather than the actual implementation.
 
-### Develop
+<br />
 
-To develop all apps and packages, run the following command:
+### <b>WEB</b>:
 
-```
-cd my-turborepo
-pnpm dev
-```
+The web project leveraged Next.js, offering support for SSR, SSG, basic routing, and more. The application comprises a Dashboard (SSR) showcasing the user's list information and task progress. The Tasks screen enables users to manage tasks. Updates occur via REST, lacking real-time synchronization.
 
-### Remote Caching
+<b>Challenges</b>:
+Despite being well-acquainted with React, I hadn't worked with a Next.js version beyond 13, where there was a change in how SSR components are created. I found the new method of creating SSR components much easier, and, akin to the monorepo, the primary challenge lies in studying and analyzing the structuring of Client-Side and Server-Side components.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+<br />
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+### <b>MOBILE</b>:
 
-```
-cd my-turborepo
-npx turbo login
-```
+The mobile app, built in React Native using Expo with the Bare workflow, empowers users to create activity lists, add tasks, and update tasks. In contrast to the web, mobile updates use a socket, ensuring real-time reflection of changes made on the web.
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+<b>Challenges</b>:
+Despite being my preferred technology, integrating Nativewind into the project for React Native posed challenges. Opting for Nativewind, which works well for web applications, might not have been the best choice for React Native, but that's what made it a challenge
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+<br />
 
-```
-npx turbo link
-```
+### <b>NATIVE MODULES</b>:
 
-## Useful Links
+Regarding native modules, one suggestion was to monitor the user's internet connection. A NetInfo module was created for both applications, with the Android module developed in Java and the iOS module in Swift. These modules export a listener to allow JS-side connection change monitoring.
 
-Learn more about the power of Turborepo:
+<b>Challenges</b>:
+In the Native Modules domain, the main hurdle revolved around discovering and understanding native APIs for implementation. The most significant challenge was analyzing the native APIs, studying them and subsequently integrating them into the application architecture.
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+<br />
+
+### <b>API (Extra)</b>:
+
+For the API, NestJs was chosen for its robust architecture and an organized, intuitive project pattern. Prisma (ORM) was used alongside sqlite for the database. The API includes basic CRUD functionalities for lists and tasks, with a gateway for users to connect and receive real-time updates when modifications occur.
+
+<b>Challenges</b>:
+Designing the gateway to notify users of updates presented challenges. Similar to the monorepo, understanding the structure and how to notify users of updates was more challenging than the implementation itself.
+
+<br />
+
+### <b>PACKAGES</b>:
+
+The 'Packages' folder serves exclusively for package sharing, whether for configuration or implementation. The project exported eslint, tailwind, and typescript configuration packages, simplifying the setup of new projects to be added to the monorepo. Non-configuration modules include:
+
+- api: exports services and DTOs used in applications.
+- models: centralizes item typings.
+- store: configures Zustand for state management.
+- tokens: standardizes tokens used by the frontend (colors, fonts, spacing, etc.).
+- utils: provides practical and generic functionalities for various applications.
+
+<b>Challenges</b>:
+Attempting to achieve the most with the least, respecting the peculiarities of each project, proved challenging. While initially attempting to use the same code for everything, I discovered the importance of respecting each project's specificities. Something suitable for Next.js might not necessarily work for React Native or NodeJs. However, the ease of creating various projects of the same type and reusing what was created previously in these projects makes the effort worthwhile.
