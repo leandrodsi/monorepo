@@ -1,6 +1,6 @@
 # **Task Tracker**
 
-![Banner do Aplicativo](monorepo-assets/banner.png)
+![Banner do Aplicativo](monorepo-assets/Banner.png)
 
 ## **Description**
 
@@ -10,12 +10,23 @@ The **Task Tracker** is a personal productivity tool designed for individual use
 ## **Screenshots**
 
 <div>
-<img src="monorepo-assets/task-tracker-web-dashboard.png" width="300" />
-<img src="monorepo-assets/task-tracker-web-tasks.png" width="300" />
-<img src="monorepo-assets/task-tracker-app.png" width="150" />
+<img src="monorepo-assets/task-tracker-web-dashboard.png" />
+<img src="monorepo-assets/task-tracker-web-tasks.png" />
+<img src="monorepo-assets/task-tracker-app.png" width="300" />
 </div>
 
 ## **Usage experience**
+
+- Realtime
+  
+https://github.com/leandrodsi/monorepo/assets/38085899/99dfcc0c-0cb3-490d-9a8d-cff934ddd969
+
+- Mobile
+  
+https://github.com/leandrodsi/monorepo/assets/38085899/07000a80-ca03-47da-99c3-c3797446d380
+
+
+
 
 ## **Prerequisites**
 
@@ -85,7 +96,7 @@ $ yarn dev
   $ cd ios && pod install && cd ..
 
   # Start application on Android
-  $ yarn android
+  $ yarn ios
   ```
 
 ### **SCOPE**:
@@ -97,12 +108,12 @@ The project aimed to address four specific functionalities:
    - Design and implement a **ReactJS** component that benefits from **Next.js's** server-side rendering capabilities. This should focus on optimizing performance and enhancing SEO.
    - Address challenges related to data fetching in a server-side rendered environment and elaborate on any other considerations unique to **Next.js**.
 
-2. **React Native and Data Synchronization**:
+2. ** _React Native_ and Data Synchronization**:
 
    - Develop a **React Native** feature that revolves around fetching and updating data dynamically. The goal is to ensure that users are consistently presented with the most recent and relevant data.
    - Highlight and address challenges such as handling changing network conditions, battery efficiency, and ensuring data integrity.
 
-3. **Native Module Development in React Native**:
+3. **Native Module Development in _React Native_ **:
 
    - Craft a native module for the **React Native** ecosystem. This could involve leveraging a device-specific feature, enhancing user experience, or optimizing a particular performance-heavy task.
    - Detail the process of facilitating seamless communication between the native module and React Native's JavaScript layer, ensuring data integrity and smooth user experience.
