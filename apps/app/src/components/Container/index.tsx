@@ -16,7 +16,6 @@ export const Container = ({ children }: ContainerProps) => {
 
     socket.on('connect', () => console.log('CONNECTED'));
     socket.on('onMessage', message => {
-      console.log('MESSAGE: ', message);
       updateList(message);
     });
   }, []);
